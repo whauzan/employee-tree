@@ -1,19 +1,32 @@
 import { Employee } from "@/models/Employee";
 import { EmployeeService } from "@/services/Employee";
-import { beforeEach, describe, expect, test } from "@jest/globals";
+import { describe, expect, test } from "@jest/globals";
+
+const mockData: Employee[] = [
+  new Employee(1, "raelynn", null),
+  new Employee(2, "darin", 1),
+  new Employee(3, "kacie", 1),
+  new Employee(4, "jordana", 2),
+  new Employee(5, "everett", 2),
+  new Employee(6, "bertha", 2),
+  new Employee(7, "peg", 3),
+  new Employee(8, "hugh", 3),
+  new Employee(9, "eveleen", 3),
+  new Employee(10, "evelina", 9),
+];
+
+const employeeService = new EmployeeService(mockData);
 
 describe("EmployeeService", () => {
-  let employeeSercice: EmployeeService;
-  let mockData: Employee[];
+  describe("getDirectReportsCount Method", () => {
+    test("returns correct count for an employee with direct reports", () => {
+      const directReportsCount = employeeService.getDirectReportsCount(1); // Assuming employee with ID 1 has direct reports
+      expect(directReportsCount).toBe(2);
+    });
 
-  beforeEach(() => {
-    // Setup mock data
-    mockData = [new Employee(1, "Raelynn", null), new Employee(2, "Darin", 1)];
-    employeeSercice = new EmployeeService(mockData);
-  });
-
-  test("getDirectReportsCount returns correct count", () => {
-    const directReportsCount = employeeSercice.getDirectReportsCount(1);
-    expect(directReportsCount).toBe(1);
+    test("returns 0 for an employee with no direct reports", () => {
+      const directReportsCount = employeeService.getDirectReportsCount(10); // Assuming employee with ID 10 has no direct reports
+      expect(directReportsCount).toBe(0);
+    });
   });
 });
