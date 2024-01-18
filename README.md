@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/whauzan/employee-tree/graph/badge.svg?token=96RYVUJDZY)](https://codecov.io/gh/whauzan/employee-tree)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
