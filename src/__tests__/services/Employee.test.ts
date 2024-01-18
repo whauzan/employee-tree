@@ -41,4 +41,16 @@ describe("EmployeeService", () => {
       expect(indirectReportsCount).toBe(0);
     });
   });
+
+  describe("getTotalReports Method", () => {
+    test("returns correct count for an employee with direct and indirect reports", () => {
+      const totalReports = employeeService.getTotalReports(1); // Assuming employee with ID 1 has direct and indirect reports
+      expect(totalReports).toBe(9);
+    });
+
+    test("returns 0 for an employee with no direct and indirect reports", () => {
+      const totalReports = employeeService.getTotalReports(10); // Assuming employee with ID 10 has no direct and indirect reports
+      expect(totalReports).toBe(0);
+    });
+  });
 });
