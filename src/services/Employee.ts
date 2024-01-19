@@ -90,15 +90,19 @@ export class EmployeeService {
   }
 
   private buildManagerChain(employee: Employee, chain: Employee[]): Employee[] {
-    if (!employee.managerId) return chain;
+    if (!employee || !employee.managerId) {
+      return chain;
+    }
+
     const manager = this.findEmployeeById(
       employee.managerId,
       this.employeeTree,
     );
     if (manager) {
-      chain.push(manager);
+      chain.push(new Employee(manager.id, manager.name, manager.managerId));
       return this.buildManagerChain(manager, chain);
     }
+
     return chain;
   }
 
