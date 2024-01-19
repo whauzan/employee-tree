@@ -53,4 +53,19 @@ describe("EmployeeService", () => {
       expect(totalReports).toBe(0);
     });
   });
+
+  describe("getManagerChain Method", () => {
+    test("returns correct manager chain for a given employee", () => {
+      expect(employeeService.getManagerChain(10)).toEqual([
+        new Employee(9, "eveleen", 3),
+        new Employee(3, "kacie", 1),
+        new Employee(1, "raelynn", null),
+      ]); // Evelina's managers: Eveleen, Kacie, Raelynn
+    });
+
+    test("returns empty array for an employee with no manager", () => {
+      const managerChain = employeeService.getManagerChain(1); // Assuming employee with ID 1 has no manager
+      expect(managerChain).toEqual([]);
+    });
+  });
 });
