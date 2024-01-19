@@ -68,4 +68,19 @@ describe("EmployeeService", () => {
       expect(managerChain).toEqual([]);
     });
   });
+
+  describe("searchEmployee Method", () => {
+    test("returns correct employee for a given name", () => {
+      const employee = employeeService.searchEmployee("eveleen"); // Assuming employee with name "eveleen" exists
+      // equal to a tree node with id 9, name "eveleen", and manager id 3
+      expect(employee).toEqual(
+        new Employee(9, "eveleen", 3, [new Employee(10, "evelina", 9)]),
+      );
+    });
+
+    test("returns undefined for a given name that does not exist", () => {
+      const employee = employeeService.searchEmployee("john"); // Assuming employee with name "john" does not exist
+      expect(employee).toBeUndefined();
+    });
+  });
 });
