@@ -40,6 +40,7 @@ export default function Home() {
       setEmployeeInfo({});
     }
   };
+
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
       <h2>Employee Tree</h2>
