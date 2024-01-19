@@ -90,7 +90,7 @@ export class EmployeeService {
   }
 
   private buildManagerChain(employee: Employee, chain: Employee[]): Employee[] {
-    if (!employee || !employee.managerId) {
+    if (!employee.managerId) {
       return chain;
     }
 

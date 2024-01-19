@@ -28,6 +28,11 @@ describe("EmployeeService", () => {
       const directReportsCount = employeeService.getDirectReportsCount(10); // Assuming employee with ID 10 has no direct reports
       expect(directReportsCount).toBe(0);
     });
+
+    test("returns 0 for an employee with an id that does not exist", () => {
+      const directReportsCount = employeeService.getDirectReportsCount(11); // Assuming employee with ID 11 does not exist
+      expect(directReportsCount).toBe(0);
+    });
   });
 
   describe("getIndirectReportsCount Method", () => {
@@ -40,6 +45,11 @@ describe("EmployeeService", () => {
       const indirectReportsCount = employeeService.getIndirectReportsCount(10); // Assuming employee with ID 10 has no indirect reports
       expect(indirectReportsCount).toBe(0);
     });
+
+    test("returns 0 for an employee with an id that does not exist", () => {
+      const indirectReportsCount = employeeService.getIndirectReportsCount(11); // Assuming employee with ID 11 does not exist
+      expect(indirectReportsCount).toBe(0);
+    });
   });
 
   describe("getTotalReports Method", () => {
@@ -50,6 +60,11 @@ describe("EmployeeService", () => {
 
     test("returns 0 for an employee with no direct and indirect reports", () => {
       const totalReports = employeeService.getTotalReports(10); // Assuming employee with ID 10 has no direct and indirect reports
+      expect(totalReports).toBe(0);
+    });
+
+    test("returns 0 for an employee with an id that does not exist", () => {
+      const totalReports = employeeService.getTotalReports(11); // Assuming employee with ID 11 does not exist
       expect(totalReports).toBe(0);
     });
   });
@@ -65,6 +80,11 @@ describe("EmployeeService", () => {
 
     test("returns empty array for an employee with no manager", () => {
       const managerChain = employeeService.getManagerChain(1); // Assuming employee with ID 1 has no manager
+      expect(managerChain).toEqual([]);
+    });
+
+    test("returns empty array for an employee with an id that does not exist", () => {
+      const managerChain = employeeService.getManagerChain(11); // Assuming employee with ID 11 does not exist
       expect(managerChain).toEqual([]);
     });
   });
