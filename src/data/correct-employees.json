@@ -2,51 +2,81 @@
   {
     "id": 1,
     "name": "raelynn",
-    "managerId": null
+    "managerId": null,
+    "position": "CEO",
+    "bio": "Experienced leader in the company",
+    "profilePic": "https://randomuser.me/api/portraits/women/1.jpg"
   },
   {
     "id": 2,
     "name": "darin",
-    "managerId": 1
+    "managerId": 1,
+    "position": "CTO",
+    "bio": "Tech expert leading the technology team",
+    "profilePic": "https://randomuser.me/api/portraits/women/2.jpg"
   },
   {
     "id": 3,
     "name": "kacie",
-    "managerId": 1
+    "managerId": 1,
+    "position": "CFO",
+    "bio": "Financial expert managing company finances",
+    "profilePic": "https://randomuser.me/api/portraits/women/3.jpg"
   },
   {
     "id": 4,
     "name": "jordana",
-    "managerId": 2
+    "managerId": 2,
+    "position": "Lead Engineer",
+    "bio": "Leads the engineering team in innovative projects",
+    "profilePic": "https://randomuser.me/api/portraits/women/4.jpg"
   },
   {
     "id": 5,
     "name": "everett",
-    "managerId": 2
+    "managerId": 2,
+    "position": "Software Engineer",
+    "bio": "Develops software solutions for the company",
+    "profilePic": "https://randomuser.me/api/portraits/women/5.jpg"
   },
   {
     "id": 6,
     "name": "bertha",
-    "managerId": 2
+    "managerId": 2,
+    "position": "Software Engineer",
+    "bio": "Contributes to software development projects",
+    "profilePic": "https://randomuser.me/api/portraits/women/6.jpg"
   },
   {
     "id": 7,
     "name": "peg",
-    "managerId": 3
+    "managerId": 3,
+    "position": "Financial Analyst",
+    "bio": "Analyzes financial data and provides insights",
+    "profilePic": "https://randomuser.me/api/portraits/men/1.jpg"
   },
   {
     "id": 8,
     "name": "hugh",
-    "managerId": 3
+    "managerId": 3,
+    "position": "Accountant",
+    "bio": "Manages financial accounts and transactions",
+    "profilePic": "https://randomuser.me/api/portraits/men/2.jpg"
   },
   {
     "id": 9,
     "name": "eveleen",
-    "managerId": 3
+    "managerId": 3,
+    "position": "Financial Planner",
+    "bio": "Plans and strategizes company's financial activities",
+    "profilePic": "https://randomuser.me/api/portraits/women/7.jpg"
   },
   {
     "id": 10,
     "name": "evelina",
-    "managerId": 9
+    "managerId": 9,
+    "position": "Junior Financial Planner",
+    "bio": "Assists in financial planning and analysis",
+    "profilePic": "https://randomuser.me/api/portraits/women/8.jpg"
   }
 ]
