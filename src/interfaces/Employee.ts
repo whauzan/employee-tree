@@ -1,5 +1,10 @@
 export interface IEmployee {
-  id: number;
   name: string;
-  managerId: number | null;
+  attributes: {
+    id: number;
+    managerId: number | null;
+    position: string;
+    bio: string;
+    profilePic: string;
+  };
 }
