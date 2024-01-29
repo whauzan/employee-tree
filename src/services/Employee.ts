@@ -7,6 +7,7 @@ class EmployeeTreeBuilder {
 
   build(): Employee {
     const employeeMap = new Map<number, Employee>();
+    const employeesWithoutConnections = new Set<string>();
 
     // Create a map of all employees
     this.employees.forEach((employee) => {
@@ -23,13 +24,66 @@ class EmployeeTreeBuilder {
         if (manager !== undefined) {
           manager.children.push(employee);
         }
+      } else {
+        employeesWithoutConnections.add(employee.name);
       }
     });
+
+    // Remove employees who have direct reports
+    employeeMap.forEach((employee) => {
+      if (employee.children.length > 0) {
+        employeesWithoutConnections.delete(employee.name);
+      }
+    });
+
+    // Check if there are multiple employees without a manager
+    if (employeesWithoutConnections.size > 1) {
+      const names = Array.from(employeesWithoutConnections).join(", ");
+      throw new Error(
+        `Unable to process employee hierarchy. ${names} not having hierarchy`,
+      );
+    }
 
     // Find the root node (employee without a manager)
     return Array.from(employeeMap.values()).find(
       (employee) => !employee.attributes.managerId,
     ) as Employee;
+  }
+}
+
+class ManagerChecker {
+  constructor(private employees: Employee[]) {}
+
+  checkForMultipleManagers() {
+    const managerMap = new Map<number, Set<number>>();
+
+    this.employees.forEach((employee) => {
+      if (!managerMap.has(employee.attributes.id)) {
+        managerMap.set(employee.attributes.id, new Set());
+      }
+      if (employee.attributes.managerId !== null) {
+        managerMap
+          .get(employee.attributes.id)
+          ?.add(employee.attributes.managerId);
+      }
+    });
+
+    managerMap.forEach((managers, employeeId) => {
+      if (managers.size > 1) {
+        const employee = this.employees.find(
+          (e) => e.attributes.id === employeeId,
+        );
+        const managerNames = Array.from(managers)
+          .map(
+            (managerId) =>
+              this.employees.find((e) => e.attributes.id === managerId)?.name,
+          )
+          .filter((name) => name !== undefined) as string[];
+        throw new Error(
+          `Hierarchy error: ${employee?.name} reports to multiple superiors: ${managerNames.join(", ")}.`,
+        );
+      }
+    });
   }
 }
 
@@ -160,11 +214,14 @@ class ReportCounter {
 
 export class EmployeeService {
   private treeBuilder: EmployeeTreeBuilder;
+  private managerChecker: ManagerChecker;
   private searcher: EmployeeSearcher;
   private chainBuilder: ManagerChainBuilder;
   private counter: ReportCounter;
 
   constructor(private employees: Employee[]) {
+    this.managerChecker = new ManagerChecker(employees);
+    this.managerChecker.checkForMultipleManagers();
     this.treeBuilder = new EmployeeTreeBuilder(employees);
     const root = this.treeBuilder.build();
     this.searcher = new EmployeeSearcher(root);

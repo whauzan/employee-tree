@@ -1,29 +1,40 @@
 "use client";
 
+import { useLayoutEffect, useRef } from "react";
 import { useEmployeeContext } from "@/lib/hooks/useEmployeeContext";
-import React, { useLayoutEffect, useRef, useState } from "react";
+import { useErrorContext } from "@/lib/hooks/useErrorContext";
 import Tree from "react-d3-tree";
 
 const EmployeeTree = () => {
   const treeContainerRef = useRef<HTMLDivElement>(null);
-  const [translate, setTranslate] = useState({ x: 0, y: 0 });
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const translateRef = useRef({ x: 0, y: 0 });
+  const dimensionsRef = useRef({ width: 0, height: 0 });
 
   const { state } = useEmployeeContext();
+  const { error } = useErrorContext();
 
   useLayoutEffect(() => {
     if (treeContainerRef.current) {
       const dimensions = treeContainerRef.current.getBoundingClientRect();
-      setTranslate({
+      translateRef.current = {
         x: dimensions.width / 2,
         y: dimensions.height / 4,
-      });
-      setDimensions({
+      };
+      dimensionsRef.current = {
         width: dimensions.width,
         height: dimensions.height,
-      });
+      };
     }
-  }, []);
+  }, [error]);
+
+  if (error) {
+    return (
+      <div>
+        <h2>Something went wrong!</h2>
+        <p>{error.message}</p>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -31,16 +42,16 @@ const EmployeeTree = () => {
       className="flex h-[calc(100vh-11rem)] w-full items-center justify-center border"
       ref={treeContainerRef}
     >
-      {treeContainerRef.current && (
+      {treeContainerRef.current && state[0].employeeTree && (
         <Tree
           hasInteractiveNodes
           data={state[0].employeeTree ?? undefined}
           orientation="vertical"
           pathFunc={"step"}
-          dimensions={dimensions}
+          dimensions={dimensionsRef.current}
           draggable={true}
           zoomable={true}
-          translate={translate}
+          translate={translateRef.current}
         />
       )}
     </div>
