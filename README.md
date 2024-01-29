@@ -55,9 +55,18 @@ To run the application locally, you need to have Node.js and npm installed on yo
 Or, you can use docker to run the application. You need to have Docker installed on your machine. Once you have these prerequisites, follow these steps:
 
 1. Pull the docker image to your local machine:
+
    ```bash
    docker pull whauzan/employee-tree:latest
    ```
+
+2. Run the application:
+
+   ```bash
+   docker run --rm -p 3000:3000/tcp whauzan/employee-tree:latest
+   ```
+
+3. Open `http://localhost:3000` with your browser to see the result
 
 ## Testing
 
