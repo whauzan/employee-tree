@@ -2,26 +2,41 @@
   {
     "id": 1,
     "name": "maurice",
-    "managerId": null
+    "managerId": null,
+    "position": "CEO",
+    "bio": "Experienced CEO with a demonstrated history of working in the computer software industry. Skilled in Negotiation, Business Planning, Sales, Sales Management, and Management. Strong business development professional with a Bachelor of Science (BSc) focused in Computer Science from University of California, Berkeley.",
+    "profilePic": "https://randomuser.me/api/portraits/men/1.jpg"
   },
   {
     "id": 2,
     "name": "hayleigh",
-    "managerId": 1
+    "managerId": 1,
+    "position": "VP of Engineering",
+    "bio": "Experienced Vice President Of Engineering with a demonstrated history of working in the computer software industry. Skilled in Negotiation, Business Planning, Sales, Sales Management, and Management. Strong business development professional with a Bachelor of Science (BSc) focused in Computer Science from University of California, Berkeley.",
+    "profilePic": "https://randomuser.me/api/portraits/men/2.jpg"
   },
   {
     "id": 3,
     "name": "edwyn",
-    "managerId": 1
+    "managerId": 1,
+    "position": "VP of Sales",
+    "bio": "Experienced Vice President Of Sales with a demonstrated history of working in the computer software industry. Skilled in Negotiation, Business Planning, Sales, Sales Management, and Management. Strong business development professional with a Bachelor of Science (BSc) focused in Computer Science from University of California, Berkeley.",
+    "profilePic": "https://randomuser.me/api/portraits/men/3.jpg"
   },
   {
     "id": 4,
     "name": "keane",
-    "managerId": null
+    "managerId": null,
+    "position": "Software Engineer",
+    "bio": "Experienced Software Engineer with a demonstrated history of working in the computer software industry. Skilled in Negotiation, Business Planning, Sales, Sales Management, and Management. Strong business development professional with a Bachelor of Science (BSc) focused in Computer Science from University of California, Berkeley.",
+    "profilePic": "https://randomuser.me/api/portraits/men/4.jpg"
   },
   {
     "id": 5,
     "name": "kylee",
-    "managerId": null
+    "managerId": null,
+    "position": "Software Engineer",
+    "bio": "Experienced Software Engineer with a demonstrated history of working in the computer software industry. Skilled in Negotiation, Business Planning, Sales, Sales Management, and Management. Strong business development professional with a Bachelor of Science (BSc) focused in Computer Science from University of California, Berkeley.",
+    "profilePic": "https://randomuser.me/api/portraits/women/1.jpg"
   }
 ]

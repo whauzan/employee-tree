@@ -4,9 +4,20 @@ import { Action } from "./reducer/EmployeeReducer";
 import { EmployeeState } from "@/interfaces/Employee";
 
 const createPayload = (
-  employeeService: EmployeeService,
+  employeeService: EmployeeService | null,
   employeeName?: string,
 ) => {
+  if (!employeeService) {
+    return [
+      {
+        employeeTree: undefined,
+        employee: null,
+        totalDirectReports: 0,
+        totalIndirectReports: 0,
+        totalReports: 0,
+      },
+    ];
+  }
   const foundEmployee = employeeName
     ? employeeService.searchEmployee(employeeName)
     : null;
@@ -31,7 +42,7 @@ const createPayload = (
 
 export const fetchEmployeeData = (
   searchParams: { [key: string]: string | undefined },
-  employeeService: EmployeeService,
+  employeeService: EmployeeService | null,
   dispatch: Dispatch<Action>,
 ) => {
   const payload: EmployeeState[] = createPayload(

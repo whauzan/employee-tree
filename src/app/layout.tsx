@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import React from "react";
-import { EmployeeContextProvider } from "@/lib/provider/EmployeeContextProvider";
+import { ContextProvider } from "@/lib/provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <EmployeeContextProvider>{children}</EmployeeContextProvider>
+        <ContextProvider>{children}</ContextProvider>
       </body>
     </html>
   );

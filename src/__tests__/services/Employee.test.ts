@@ -273,4 +273,98 @@ describe("EmployeeService", () => {
       );
     });
   });
+
+  describe("EmployeeTreeBuilder", () => {
+    test("should throw an error when there are employees without hierarchy", () => {
+      const employees = [
+        new Employee("Employee 1", {
+          id: 1,
+          managerId: null,
+          position: "",
+          bio: "",
+          profilePic: "",
+        }),
+        new Employee("Employee 2", {
+          id: 2,
+          managerId: 1,
+          position: "",
+          bio: "",
+          profilePic: "",
+        }),
+        new Employee("Employee 3", {
+          id: 3,
+          managerId: 1,
+          position: "",
+          bio: "",
+          profilePic: "",
+        }),
+        new Employee("Employee 4", {
+          id: 4,
+          managerId: null,
+          position: "",
+          bio: "",
+          profilePic: "",
+        }),
+        new Employee("Employee 5", {
+          id: 5,
+          managerId: null,
+          position: "",
+          bio: "",
+          profilePic: "",
+        }),
+      ];
+
+      expect(() => new EmployeeService(employees)).toThrowError(
+        new Error(
+          "Unable to process employee hierarchy. Employee 4, Employee 5 not having hierarchy",
+        ),
+      );
+    });
+
+    test("should throw an error when an employee reports to multiple superiors", () => {
+      const employees = [
+        new Employee("Employee 1", {
+          id: 1,
+          managerId: null,
+          position: "",
+          bio: "",
+          profilePic: "",
+        }),
+        new Employee("Employee 2", {
+          id: 2,
+          managerId: 1,
+          position: "",
+          bio: "",
+          profilePic: "",
+        }),
+        new Employee("Employee 3", {
+          id: 3,
+          managerId: 1,
+          position: "",
+          bio: "",
+          profilePic: "",
+        }),
+        new Employee("Employee 4", {
+          id: 4,
+          managerId: 2,
+          position: "",
+          bio: "",
+          profilePic: "",
+        }),
+        new Employee("Employee 4", {
+          id: 4,
+          managerId: 3,
+          position: "",
+          bio: "",
+          profilePic: "",
+        }),
+      ];
+
+      expect(() => new EmployeeService(employees)).toThrowError(
+        new Error(
+          "Hierarchy error: Employee 4 reports to multiple superiors: Employee 2, Employee 3.",
+        ),
+      );
+    });
+  });
 });
