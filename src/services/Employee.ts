@@ -8,13 +8,20 @@ class EmployeeTreeBuilder {
   build(): Employee {
     const employeeMap = new Map<number, Employee>();
     const employeesWithoutConnections = new Set<string>();
+    const managerChains = new Map<number, number[]>();
 
     // Create a map of all employees
     this.employees.forEach((employee) => {
+      if (employee.attributes.id === employee.attributes.managerId) {
+        throw new Error(
+          `Employee ${employee.name} reports to self. Please correct the hierarchy.`,
+        );
+      }
       employeeMap.set(
         employee.attributes.id,
         new Employee(employee.name, employee.attributes),
       );
+      managerChains.set(employee.attributes.id, []);
     });
 
     // Build the tree structure
@@ -23,31 +30,58 @@ class EmployeeTreeBuilder {
         const manager = employeeMap.get(employee.attributes.managerId);
         if (manager !== undefined) {
           manager.children.push(employee);
+          managerChains
+            .get(employee.attributes.id)
+            ?.push(manager.attributes.id);
+
+          // Check for circular reference
+          let currentManagerId = manager.attributes.managerId;
+          while (currentManagerId) {
+            if (
+              managerChains
+                .get(employee.attributes.id)
+                ?.includes(currentManagerId)
+            ) {
+              throw new Error(
+                `Circular reference detected for employee ${employee.name}. Please correct the hierarchy.`,
+              );
+            }
+
+            const currentManager = employeeMap.get(currentManagerId);
+            if (!currentManager) {
+              throw new Error(
+                `Manager with id ${currentManagerId} does not exist for employee ${manager.name}. Please correct the hierarchy.`,
+              );
+            }
+            currentManagerId = currentManager.attributes.managerId;
+          }
         }
       } else {
         employeesWithoutConnections.add(employee.name);
       }
-    });
 
-    // Remove employees who have direct reports
-    employeeMap.forEach((employee) => {
+      // Remove employees who have direct reports
       if (employee.children.length > 0) {
         employeesWithoutConnections.delete(employee.name);
       }
     });
 
+    // Find the root node (employee without a manager)
+    const root = Array.from(employeeMap.values()).find(
+      (employee) => !employee.attributes.managerId,
+    ) as Employee;
+
     // Check if there are multiple employees without a manager
-    if (employeesWithoutConnections.size > 1) {
+    employeesWithoutConnections.delete(root.name);
+    if (employeesWithoutConnections.size > 0) {
       const names = Array.from(employeesWithoutConnections).join(", ");
       throw new Error(
         `Unable to process employee hierarchy. ${names} not having hierarchy`,
       );
     }
 
-    // Find the root node (employee without a manager)
-    return Array.from(employeeMap.values()).find(
-      (employee) => !employee.attributes.managerId,
-    ) as Employee;
+    // Return the root node
+    return root;
   }
 }
 
@@ -169,39 +203,26 @@ class ManagerChainBuilder {
 }
 
 class ReportCounter {
-  constructor(private root: Employee) {}
+  constructor(
+    private root: Employee,
+    private searcher: EmployeeSearcher,
+  ) {}
 
   getTotal(employeeId: number): number {
-    const employee = this.findEmployeeById(employeeId, this.root);
+    const employee = this.searcher.byId(employeeId);
     return employee ? this.countAllReports(employee) : 0;
   }
 
   getDirect(employeeId: number): number {
-    const employee = this.findEmployeeById(employeeId, this.root);
+    const employee = this.searcher.byId(employeeId);
     return employee ? employee.children.length : 0;
   }
 
   getIndirect(employeeId: number): number {
-    const employee = this.findEmployeeById(employeeId, this.root);
+    const employee = this.searcher.byId(employeeId);
     return employee
       ? this.countAllReports(employee) - this.getDirect(employeeId)
       : 0;
-  }
-
-  private findEmployeeById(
-    employeeId: number,
-    node: Employee,
-  ): Employee | undefined {
-    if (node.attributes.id === employeeId) {
-      return node;
-    }
-
-    for (const child of node.children) {
-      const found = this.findEmployeeById(employeeId, child);
-      if (found) return found;
-    }
-
-    return undefined;
   }
 
   private countAllReports(employee: Employee): number {
@@ -226,7 +247,7 @@ export class EmployeeService {
     const root = this.treeBuilder.build();
     this.searcher = new EmployeeSearcher(root);
     this.chainBuilder = new ManagerChainBuilder(this.searcher);
-    this.counter = new ReportCounter(root);
+    this.counter = new ReportCounter(root, this.searcher);
   }
 
   getEmployeeTree(name?: string): RawNodeDatum {

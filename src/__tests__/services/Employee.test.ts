@@ -366,5 +366,115 @@ describe("EmployeeService", () => {
         ),
       );
     });
+
+    test("should throw an error when an employee reports to self", () => {
+      const employees = [
+        new Employee("Employee 1", {
+          id: 1,
+          managerId: null,
+          position: "",
+          bio: "",
+          profilePic: "",
+        }),
+        new Employee("Employee 2", {
+          id: 2,
+          managerId: 2,
+          position: "",
+          bio: "",
+          profilePic: "",
+        }),
+      ];
+
+      expect(() => new EmployeeService(employees)).toThrowError(
+        new Error(
+          "Employee Employee 2 reports to self. Please correct the hierarchy.",
+        ),
+      );
+    });
+
+    test("should throw an error when there is a circular reference in the hierarchy", () => {
+      const employees = [
+        new Employee("Employee 1", {
+          id: 1,
+          managerId: null,
+          position: "",
+          bio: "",
+          profilePic: "",
+        }),
+        new Employee("Employee 2", {
+          id: 2,
+          managerId: 1,
+          position: "",
+          bio: "",
+          profilePic: "",
+        }),
+        new Employee("Employee 3", {
+          id: 3,
+          managerId: 5,
+          position: "",
+          bio: "",
+          profilePic: "",
+        }),
+        new Employee("Employee 4", {
+          id: 4,
+          managerId: 3,
+          position: "",
+          bio: "",
+          profilePic: "",
+        }),
+        new Employee("Employee 5", {
+          id: 5,
+          managerId: 4,
+          position: "",
+          bio: "",
+          profilePic: "",
+        }),
+      ];
+
+      expect(() => new EmployeeService(employees)).toThrowError(
+        new Error(
+          "Circular reference detected for employee Employee 3. Please correct the hierarchy.",
+        ),
+      );
+    });
+
+    test("should throw an error when a manager does not exist", () => {
+      const employees = [
+        new Employee("Employee 1", {
+          id: 1,
+          managerId: null,
+          position: "",
+          bio: "",
+          profilePic: "",
+        }),
+        new Employee("Employee 2", {
+          id: 2,
+          managerId: 1,
+          position: "",
+          bio: "",
+          profilePic: "",
+        }),
+        new Employee("Employee 3", {
+          id: 3,
+          managerId: 5,
+          position: "",
+          bio: "",
+          profilePic: "",
+        }),
+        new Employee("Employee 4", {
+          id: 4,
+          managerId: 3,
+          position: "",
+          bio: "",
+          profilePic: "",
+        }),
+      ];
+
+      expect(() => new EmployeeService(employees)).toThrowError(
+        new Error(
+          "Manager with id 5 does not exist for employee Employee 3. Please correct the hierarchy.",
+        ),
+      );
+    });
   });
 });
