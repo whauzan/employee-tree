@@ -1,9 +1,10 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import { useEmployeeContext } from "@/lib/hooks/useEmployeeContext";
 import { useErrorContext } from "@/lib/hooks/useErrorContext";
 import Tree from "react-d3-tree";
+import CustomTreeNode from "../CustomTreeNode";
 
 const EmployeeTree = () => {
   const treeContainerRef = useRef<HTMLDivElement>(null);
@@ -52,6 +53,19 @@ const EmployeeTree = () => {
           draggable={true}
           zoomable={true}
           translate={translateRef.current}
+          nodeSize={{ x: 200, y: 250 }}
+          renderCustomNodeElement={({ nodeDatum, toggleNode }) => (
+            <CustomTreeNode
+              nodeData={nodeDatum}
+              triggerNodeToggle={toggleNode}
+              foreignObjectProps={{
+                width: 200,
+                height: 200,
+                x: -100,
+                y: -100,
+              }}
+            />
+          )}
         />
       )}
     </div>
