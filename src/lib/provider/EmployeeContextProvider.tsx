@@ -7,6 +7,7 @@ import { EmployeeContext } from "../context/EmployeeContext";
 
 const initialState: EmployeeState[] = [
   {
+    employeeTree: undefined,
     employee: null,
     totalDirectReports: 0,
     totalIndirectReports: 0,
