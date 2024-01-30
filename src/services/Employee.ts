@@ -6,82 +6,103 @@ class EmployeeTreeBuilder {
   constructor(private employees: Employee[]) {}
 
   build(): Employee {
-    const employeeMap = new Map<number, Employee>();
-    const employeesWithoutConnections = new Set<string>();
-    const managerChains = new Map<number, number[]>();
+    const employeeMap = this.employees.reduce((map, employee) => {
+      map.set(employee.attributes.id, employee);
+      return map;
+    }, new Map<number, Employee>());
 
-    // Create a map of all employees
+    const root = this.employees.find(
+      (employee) => !employee.attributes.managerId,
+    );
+    if (!root) {
+      throw new Error("No root employee found");
+    }
+
+    this.buildTree(root, employeeMap);
+
+    return root;
+  }
+
+  private buildTree(employee: Employee, employeeMap: Map<number, Employee>) {
+    const directReports = this.employees.filter(
+      (e) => e.attributes.managerId === employee.attributes.id,
+    );
+    directReports.forEach((report) => {
+      if (
+        !employee.children.some(
+          (child) => child.attributes.id === report.attributes.id,
+        )
+      ) {
+        employee.children.push(report);
+      }
+      this.buildTree(report, employeeMap);
+    });
+  }
+}
+
+class EmployeeHierarchyChecker {
+  constructor(private employees: Employee[]) {}
+
+  checkForIssues(root: Employee) {
+    const employeesWithoutConnection = new Set<string>();
+    const employeeMap = this.employees.reduce((map, employee) => {
+      map.set(employee.attributes.id, employee);
+      return map;
+    }, new Map<number, Employee>());
+
     this.employees.forEach((employee) => {
       if (employee.attributes.id === employee.attributes.managerId) {
         throw new Error(
           `Employee ${employee.name} reports to self. Please correct the hierarchy.`,
         );
       }
-      employeeMap.set(
-        employee.attributes.id,
-        new Employee(employee.name, employee.attributes),
-      );
-      managerChains.set(employee.attributes.id, []);
-    });
 
-    // Build the tree structure
-    employeeMap.forEach((employee) => {
-      if (employee.attributes.managerId !== null) {
-        const manager = employeeMap.get(employee.attributes.managerId);
-        if (manager !== undefined) {
-          manager.children.push(employee);
-          managerChains
-            .get(employee.attributes.id)
-            ?.push(manager.attributes.id);
-
-          // Check for circular reference
-          let currentManagerId = manager.attributes.managerId;
-          while (currentManagerId) {
-            if (
-              managerChains
-                .get(employee.attributes.id)
-                ?.includes(currentManagerId)
-            ) {
-              throw new Error(
-                `Circular reference detected for employee ${employee.name}. Please correct the hierarchy.`,
-              );
-            }
-
-            const currentManager = employeeMap.get(currentManagerId);
-            if (!currentManager) {
-              throw new Error(
-                `Manager with id ${currentManagerId} does not exist for employee ${manager.name}. Please correct the hierarchy.`,
-              );
-            }
-            currentManagerId = currentManager.attributes.managerId;
-          }
-        }
-      } else {
-        employeesWithoutConnections.add(employee.name);
+      if (
+        !employee.attributes.managerId &&
+        employee !== root &&
+        employee.children.length === 0
+      ) {
+        employeesWithoutConnection.add(employee.name);
       }
 
-      // Remove employees who have direct reports
-      if (employee.children.length > 0) {
-        employeesWithoutConnections.delete(employee.name);
+      if (this.hasCircularReference(employee, employeeMap)) {
+        throw new Error(
+          `Circular reference detected for employee ${employee.name}. Please correct the hierarchy.`,
+        );
       }
     });
 
-    // Find the root node (employee without a manager)
-    const root = Array.from(employeeMap.values()).find(
-      (employee) => !employee.attributes.managerId,
-    ) as Employee;
-
-    // Check if there are multiple employees without a manager
-    employeesWithoutConnections.delete(root.name);
-    if (employeesWithoutConnections.size > 0) {
-      const names = Array.from(employeesWithoutConnections).join(", ");
+    if (employeesWithoutConnection.size > 0) {
       throw new Error(
-        `Unable to process employee hierarchy. ${names} not having hierarchy`,
+        `Unable to process employee hierarchy. ${Array.from(employeesWithoutConnection).join(", ")} not having hierarchy`,
       );
     }
+  }
 
-    // Return the root node
-    return root;
+  private hasCircularReference(
+    employee: Employee,
+    employeeMap: Map<number, Employee>,
+  ): boolean {
+    let currentManagerId = employee.attributes.managerId;
+    const visited = new Set<number>();
+
+    while (currentManagerId) {
+      if (visited.has(currentManagerId)) {
+        return true;
+      }
+
+      visited.add(currentManagerId);
+      const currentManager = employeeMap.get(currentManagerId);
+      if (!currentManager) {
+        throw new Error(
+          `Manager with id ${currentManagerId} does not exist for employee ${employee.name}. Please correct the hierarchy.`,
+        );
+      }
+
+      currentManagerId = currentManager.attributes.managerId;
+    }
+
+    return false;
   }
 }
 
@@ -235,6 +256,7 @@ class ReportCounter {
 
 export class EmployeeService {
   private treeBuilder: EmployeeTreeBuilder;
+  private hierarchyChecker: EmployeeHierarchyChecker;
   private managerChecker: ManagerChecker;
   private searcher: EmployeeSearcher;
   private chainBuilder: ManagerChainBuilder;
@@ -245,6 +267,8 @@ export class EmployeeService {
     this.managerChecker.checkForMultipleManagers();
     this.treeBuilder = new EmployeeTreeBuilder(employees);
     const root = this.treeBuilder.build();
+    this.hierarchyChecker = new EmployeeHierarchyChecker(employees);
+    this.hierarchyChecker.checkForIssues(root);
     this.searcher = new EmployeeSearcher(root);
     this.chainBuilder = new ManagerChainBuilder(this.searcher);
     this.counter = new ReportCounter(root, this.searcher);
