@@ -9,6 +9,7 @@ export interface IEmployee {
     position: string;
     bio: string;
     profilePic: string;
+    department: string;
   };
 }
 

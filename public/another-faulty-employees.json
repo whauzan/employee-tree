@@ -4,6 +4,7 @@
     "name": "lori",
     "managerId": null,
     "position": "CEO",
+    "department": "Executive",
     "bio": "Lori is the CEO of this company.",
     "profilePic": "https://randomuser.me/api/portraits/women/1.jpg"
   },
@@ -12,6 +13,7 @@
     "name": "fletcher",
     "managerId": 1,
     "position": "VP of Engineering",
+    "department": "Technology",
     "bio": "Fletcher is the VP of Engineering.",
     "profilePic": "https://randomuser.me/api/portraits/men/1.jpg"
   },
@@ -19,8 +21,9 @@
     "id": 3,
     "name": "tabitha",
     "managerId": 1,
-    "position": "VP of Sales",
-    "bio": "Tabitha is the VP of Sales.",
+    "position": "VP of Finance",
+    "department": "Finance",
+    "bio": "Tabitha is the VP of Finance.",
     "profilePic": "https://randomuser.me/api/portraits/women/2.jpg"
   },
   {
@@ -28,6 +31,7 @@
     "name": "linton",
     "managerId": 2,
     "position": "Engineering Manager",
+    "department": "Technology",
     "bio": "Linton is the Engineering Manager.",
     "profilePic": "https://randomuser.me/api/portraits/men/2.jpg"
   },
@@ -35,16 +39,18 @@
     "id": 5,
     "name": "tressa",
     "managerId": 3,
-    "position": "Sales Manager",
-    "bio": "Tressa is the Sales Manager.",
+    "position": "Finance Manager",
+    "department": "Finance",
+    "bio": "Tressa is the Finance Manager.",
     "profilePic": "https://randomuser.me/api/portraits/women/3.jpg"
   },
   {
     "id": 4,
     "name": "linton",
     "managerId": 3,
-    "position": "Sales Manager",
-    "bio": "Linton is the Sales Manager.",
+    "position": "Finance Manager",
+    "department": "Finance",
+    "bio": "Linton is the Finance Manager.",
     "profilePic": "https://randomuser.me/api/portraits/men/2.jpg"
   }
 ]

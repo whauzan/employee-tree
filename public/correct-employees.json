@@ -4,6 +4,7 @@
     "name": "raelynn",
     "managerId": null,
     "position": "CEO",
+    "department": "Executive",
     "bio": "Experienced leader in the company",
     "profilePic": "https://randomuser.me/api/portraits/women/1.jpg"
   },
@@ -12,6 +13,7 @@
     "name": "darin",
     "managerId": 1,
     "position": "CTO",
+    "department": "Technology",
     "bio": "Tech expert leading the technology team",
     "profilePic": "https://randomuser.me/api/portraits/women/2.jpg"
   },
@@ -20,6 +22,7 @@
     "name": "kacie",
     "managerId": 1,
     "position": "CFO",
+    "department": "Finance",
     "bio": "Financial expert managing company finances",
     "profilePic": "https://randomuser.me/api/portraits/women/3.jpg"
   },
@@ -28,6 +31,7 @@
     "name": "jordana",
     "managerId": 2,
     "position": "Lead Engineer",
+    "department": "Technology",
     "bio": "Leads the engineering team in innovative projects",
     "profilePic": "https://randomuser.me/api/portraits/women/4.jpg"
   },
@@ -36,6 +40,7 @@
     "name": "everett",
     "managerId": 2,
     "position": "Software Engineer",
+    "department": "Technology",
     "bio": "Develops software solutions for the company",
     "profilePic": "https://randomuser.me/api/portraits/women/5.jpg"
   },
@@ -44,6 +49,7 @@
     "name": "bertha",
     "managerId": 2,
     "position": "Software Engineer",
+    "department": "Technology",
     "bio": "Contributes to software development projects",
     "profilePic": "https://randomuser.me/api/portraits/women/6.jpg"
   },
@@ -52,6 +58,7 @@
     "name": "peg",
     "managerId": 3,
     "position": "Financial Analyst",
+    "department": "Finance",
     "bio": "Analyzes financial data and provides insights",
     "profilePic": "https://randomuser.me/api/portraits/men/1.jpg"
   },
@@ -60,6 +67,7 @@
     "name": "hugh",
     "managerId": 3,
     "position": "Accountant",
+    "department": "Finance",
     "bio": "Manages financial accounts and transactions",
     "profilePic": "https://randomuser.me/api/portraits/men/2.jpg"
   },
@@ -68,6 +76,7 @@
     "name": "eveleen",
     "managerId": 3,
     "position": "Financial Planner",
+    "department": "Finance",
     "bio": "Plans and strategizes company's financial activities",
     "profilePic": "https://randomuser.me/api/portraits/women/7.jpg"
   },
@@ -76,6 +85,7 @@
     "name": "evelina",
     "managerId": 9,
     "position": "Junior Financial Planner",
+    "department": "Finance",
     "bio": "Assists in financial planning and analysis",
     "profilePic": "https://randomuser.me/api/portraits/women/8.jpg"
   }

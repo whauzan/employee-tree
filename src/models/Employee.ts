@@ -16,6 +16,7 @@ export class Employee implements IEmployee {
       position: string;
       bio: string;
       profilePic: string;
+      department: string;
     },
     public children: EmployeeType[] = [],
   ) {}

@@ -1,25 +1,40 @@
-import TabContentData from "./_components/TabContentData";
-import { SearchParamsProps, TabData } from "@/interfaces";
-import correctEmployeeData from "@/data/correct-employees.json";
-import faultyEmployeeData from "@/data/faulty-employees.json";
-import anotherFaultyEmployeeData from "@/data/another-faulty-employees.json";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/Card";
 
-const dataMap: TabData = {
-  "correct-data": {
-    data: correctEmployeeData,
-    label: "Correct Employee Data",
-  },
-  "faulty-data": { data: faultyEmployeeData, label: "Faulty Employee Data" },
-  "another-faulty-data": {
-    data: anotherFaultyEmployeeData,
-    label: "Another Faulty Employee Data",
-  },
-};
-
-export default function Home({ searchParams }: SearchParamsProps) {
+export default function Home() {
   return (
-    <div className="flex w-full items-center justify-center px-10">
-      <TabContentData searchParams={searchParams} dataMap={dataMap} />
+    <div className="space-y-4">
+      <h3 className="text-2xl font-semibold text-primary">
+        Welcome to Employee Tree
+      </h3>
+      <Card className="bg-white">
+        <CardHeader>
+          <CardTitle className="text-xl">About Us</CardTitle>
+          <CardDescription className="text-base">
+            To provide the best quality products and services to our customers
+            worldwide, while fostering a culture of innovation and growth.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex justify-between">
+            <p>Founded</p>
+            <p>2023</p>
+          </div>
+          <div className="flex justify-between">
+            <p>Employees</p>
+            <p>500+</p>
+          </div>
+          <div className="flex justify-between">
+            <p>Location</p>
+            <p>Worldwide</p>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
