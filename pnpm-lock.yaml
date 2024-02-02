@@ -41,9 +41,6 @@ dependencies:
   cmdk:
     specifier: ^0.2.1
     version: 0.2.1(@types/react@18.2.48)(react-dom@18.2.0)(react@18.2.0)
-  employee-tree:
-    specifier: "link:"
-    version: "link:"
   eslint-config-prettier:
     specifier: ^9.1.0
     version: 9.1.0(eslint@8.56.0)
