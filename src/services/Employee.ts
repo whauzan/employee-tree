@@ -204,6 +204,7 @@ class ManagerChainBuilder {
           position: currentEmployee.attributes.position,
           bio: currentEmployee.attributes.bio,
           profilePic: currentEmployee.attributes.profilePic,
+          department: currentEmployee.attributes.department,
         },
         children: [],
       });
