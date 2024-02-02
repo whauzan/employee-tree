@@ -15,7 +15,9 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
       <div className="flex gap-x-2">
         <ButtonDataOption searchParams={searchParams} />
       </div>
-      <DataTable data={employees} columns={columns} />
+      <div className="max-w-xs xs:max-w-sm sm:max-w-full">
+        <DataTable data={employees} columns={columns} />
+      </div>
     </div>
   );
 };

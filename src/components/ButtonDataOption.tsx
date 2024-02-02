@@ -33,6 +33,7 @@ const ButtonDataOption = ({ searchParams }: ButtonDataOptionProps) => {
           variant={item.url === activeData ? "default" : "outline"}
           key={item.label}
           onClick={() => handleActiveData(item.url)}
+          className="px-2 text-xs xs:px-4 xs:text-sm"
         >
           {item.label}
         </Button>

@@ -56,7 +56,7 @@ const EmployeeTree = ({ searchParams, employees }: EmployeeTreeProps) => {
 
   return (
     <div className="flex flex-col gap-y-2">
-      <div className="relative w-80">
+      <div className="relative w-60 sm:w-80">
         <Search className="absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground" />
         <Input
           placeholder="Search for an employee"

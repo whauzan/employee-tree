@@ -13,7 +13,7 @@ export const columns: ColumnDef<Employee>[] = [
       <DataTableColumnHeader column={column} title="Name" />
     ),
     cell: ({ row }) => (
-      <div className="flex items-center gap-x-2">
+      <div className="flex w-32 items-center gap-x-2">
         <Image
           src={row.original.profilePic}
           width={100}
