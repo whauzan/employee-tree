@@ -4,6 +4,8 @@
 
 Employee Tree is a web application that allows you to visualize the hierarchy of employees within an organization. It takes a list of employees, each with an ID, a manager ID, and a list of direct reports, and builds a tree structure that represents the hierarchy of the organization.
 
+The PRD can be seen here [PRD](public/PRD.pdf)
+
 ![Home](public/home.png)
 ![Employees](public/employees.png)
 ![Hierarchy](public/hierarchy.png)
