@@ -4,11 +4,19 @@
 
 Employee Tree is a web application that allows you to visualize the hierarchy of employees within an organization. It takes a list of employees, each with an ID, a manager ID, and a list of direct reports, and builds a tree structure that represents the hierarchy of the organization.
 
+![Home](public/home.png)
+![Employees](public/employees.png)
+![Hierarchy](public/hierarchy.png)
+
 ## Technology Stack
 
 This application is built using [Next.js](https://nextjs.org/), a popular React framework for building web applications. It also uses TypeScript for static type checking, and Jest for unit testing. The application follows a Model-View-Controller (MVC) architecture, with the `Employee` class representing the model, the `EmployeeService` class acting as the controller, and the Next.js pages serving as the views.
 
 [React-D3-Tree](https://github.com/bkrem/react-d3-tree) is used to build the tree visualization with a custom node component. For styling, TailwindCSS is used.
+
+## Visit Deployed Web
+
+You can visit the deployed version on https://employee-tree.whauzan.dev/
 
 ## Running the Application Locally
 
