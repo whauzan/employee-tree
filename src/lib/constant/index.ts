@@ -8,17 +8,17 @@ export const DATAMAP: DataMap[] = [
   {
     url: "correct-data",
     label: "Correct Data",
-    path: "src/data/correct-employees.json",
+    path: "correct-employees.json",
   },
   {
     url: "faulty-data",
     label: "Faulty Data",
-    path: "src/data/faulty-employees.json",
+    path: "faulty-employees.json",
   },
   {
     url: "faulty-data-2",
     label: "Faulty Data 2",
-    path: "src/data/another-faulty-employees.json",
+    path: "another-faulty-employees.json",
   },
 ];
 
