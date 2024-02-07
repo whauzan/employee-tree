@@ -3,7 +3,7 @@ import { RawNodeDatum } from "react-d3-tree";
 
 type EmployeeType = IEmployee & {
   children: EmployeeType[];
-  toRawNodeDatum: () => RawNodeDatum;
+  formatForReactD3Tree: () => RawNodeDatum;
 };
 
 export class Employee implements IEmployee {
@@ -21,7 +21,7 @@ export class Employee implements IEmployee {
     public children: EmployeeType[] = [],
   ) {}
 
-  toRawNodeDatum(): RawNodeDatum {
+  formatForReactD3Tree(): RawNodeDatum {
     const { name, children } = this;
     const rawNodeDatum: RawNodeDatum = { name, attributes: {}, children: [] };
 
@@ -34,7 +34,9 @@ export class Employee implements IEmployee {
     };
 
     if (children) {
-      rawNodeDatum.children = children.map((child) => child.toRawNodeDatum());
+      rawNodeDatum.children = children.map((child) =>
+        child.formatForReactD3Tree(),
+      );
     }
 
     return rawNodeDatum;

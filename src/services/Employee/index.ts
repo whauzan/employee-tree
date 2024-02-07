@@ -35,7 +35,7 @@ export class EmployeeService {
         return result;
       }
     }
-    return this.treeBuilder.build().toRawNodeDatum();
+    return this.treeBuilder.build().formatForReactD3Tree();
   }
 
   searchEmployee(name: string): Employee | undefined {
